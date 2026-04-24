@@ -87,7 +87,7 @@ export const ALL_QUESTIONS = [
   {q:"Technology and Science can alone solve all our sustainability problems.",o:["True","False"],a:1},
   {q:"GAP in the context of ESD stands for ___.",o:["Global Action Programme","Great Activity Plan","Global Attention Programme","Great Action Policy"],a:0},
   {q:"___ competency is the ability to understand and evaluate multiple futures.",o:["anticipatory","normative","strategic","collaborative"],a:0},
-  {q:"The ability to question norms is ___ competency.",o:["critical thinking","normative","anticipatory","self-awareness"],a:1},
+  {q:"The ability to question norms is ___ competency.",o:["critical thinking","normative","anticipatory","self-awareness"],a:0},
   {q:"Action-oriented learning draws on Kolb's concept of ___.",o:["experiential learning","experimental learning","rote learning","direct learning"],a:0},
   {q:"Fish bowl discussion helps ___.",o:["passive thinking","critical and reflexive thinking","rote-memory","all of the given"],a:1},
   {q:"Which is NOT a vision-building exercise?",o:["scenario analysis","classroom teaching","science fiction thinking","dystopian storytelling"],a:1},
@@ -117,7 +117,7 @@ export const ALL_QUESTIONS = [
   {q:"The ___ component in theory 'U' entails prototyping the new.",o:["co-evolving","co-initiating","co-sensing","co-creating"],a:3},
   {q:"Which does NOT aid in becoming a global leader?",o:["willingness to stay in one's comfort zone","undesirable circumstances like poverty","confidence to embrace risk","willingness to learn from failure"],a:0},
   {q:"According to Maxwell, there are ___ levels of leadership.",o:["15","25","50","5"],a:3},
-  {q:"The ___ describes global leaders as dynamic, engaged individuals with intellectual curiosity and service-oriented humility.",o:["World Health Organization","World Labor Organization","World Economic Forum","World Political Forum"],a:2},
+  {q:" The ___, in relation to their Global Leadership Fellowship program, describes global leaders asdynamic, engaged and driven individuals who possess a high degree of intellectual curiosity and service-oriented humility; an entrepreneur in the global public interest with a profound sense of purpose regardless of the scale and scope of the challenge.",o:["World Health Organization","World Labor Organization","World Economic Forum","World Political Forum"],a:2},
   {q:"SDG ___ is to make cities and human settlements inclusive, safe, resilient, and sustainable.",o:["2","10","11","5"],a:2},
   {q:"___ resources are those that exist in the absence of human intervention.",o:["Artificial","Natural","Fake","Real"],a:1},
   {q:"The food sector accounts for around ___ percent of total greenhouse gas emissions.",o:["3","22","100","90"],a:1},
@@ -127,7 +127,7 @@ export const ALL_QUESTIONS = [
   {q:"A bulb thrown out after usage forms ___.",o:["wet waste","valuable waste","responsible waste","e-waste"],a:3},
   {q:"SDG ___ seeks to promote international trade and help developing countries increase their exports.",o:["17","2","6","11"],a:0},
   {q:"According to Gandhiji, wealth should be used for ___.",o:["the betterment of the humanity","personal indulgence","conflicts","politics"],a:0},
-  {q:"The ___ initiated by Gandhiji is the preeminent prototype of small and cottage industries.",o:["Khadi Movement","Salt March","Cotton Movement","Non-violent Protest"],a:0},
+  {q:"The ___ initiated by Gandhiji is the preeminent prototype of small and cottage industries.Strengthening village economy, and thus, reducing excessive urbanization can make human settlements safe,resilient and sustainable.",o:["Khadi Movement","Salt March","Cotton Movement","Non-violent Protest"],a:0},
   {q:"___ is the ability of a system to absorb disturbances and retain its basic function and structure.",o:["resilience","gratitude","mindfulness","sustainable consumption"],a:0},
 ];
 
