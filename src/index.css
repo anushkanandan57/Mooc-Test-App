@@ -133,32 +133,53 @@ body {
 .section-subtitle { font-size: 0.85rem; color: var(--text-muted); }
 
 .sets-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem; animation: fadeInUp 0.6s ease 0.1s both;
 }
 
 .set-card {
   background: var(--bg-card); border: 1px solid var(--glass-border);
   border-radius: var(--radius-md); padding: 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
   cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;
 }
 .set-card::before {
   content: ''; position: absolute; inset: 0;
-  background: var(--gradient-1); opacity: 0; transition: opacity 0.3s;
+  background: var(--gradient-2); opacity: 0; transition: opacity 0.3s;
 }
-.set-card:hover { border-color: var(--accent-1); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+.set-card:hover { border-color: var(--accent-3); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .set-card:hover::before { opacity: 0.05; }
-.set-card-content { position: relative; z-index: 1; }
-.set-number {
-  font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800;
-  background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+.set-card.completed { border-left: 3px solid var(--green); }
+
+.set-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(0, 206, 201, 0.1); color: var(--accent-3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0; position: relative; z-index: 1;
 }
-.set-label { font-size: 0.82rem; color: var(--text-secondary); margin-top: 2px; }
-.set-meta { display: flex; align-items: center; gap: 6px; margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); }
-.set-card.completed { border-color: var(--green); }
-.set-card.completed .set-number { background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.set-card.completed .set-icon {
+  background: rgba(0, 184, 148, 0.1); color: var(--green);
+}
+
+.set-card-body { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.set-number {
+  font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--text-primary);
+}
+.set-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
+.set-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+.set-action {
+  padding: 6px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600;
+  border: 1px solid rgba(0, 206, 201, 0.3); background: rgba(0, 206, 201, 0.05); color: var(--accent-3);
+  transition: all 0.2s; position: relative; z-index: 1; flex-shrink: 0;
+}
+.set-card:hover .set-action { background: rgba(0, 206, 201, 0.15); border-color: var(--accent-3); }
+.set-card.completed .set-action { color: var(--green); border-color: rgba(0, 184, 148, 0.3); background: rgba(0, 184, 148, 0.05); }
+.set-card.completed:hover .set-action { background: rgba(0, 184, 148, 0.15); border-color: var(--green); }
+
 .set-score-badge {
-  position: absolute; top: 10px; right: 10px; z-index: 2;
+  position: absolute; top: 12px; right: 12px; z-index: 2;
   background: rgba(0,184,148,0.15); color: var(--green);
   font-size: 0.72rem; font-weight: 600; padding: 3px 8px; border-radius: 100px;
 }

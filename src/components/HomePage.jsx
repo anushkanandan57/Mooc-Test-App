@@ -159,13 +159,19 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
               return (
                 <div key={num} className={`set-card ${completed ? 'completed' : ''}`} onClick={() => onStartQuiz(num)}>
                   {completed && <span className="set-score-badge">{completed.score}/{QUESTIONS_PER_SET}</span>}
-                  <div className="set-card-content">
-                    <div className="set-number">#{String(num).padStart(2, '0')}</div>
-                    <div className="set-label">Practice Set</div>
-                    <div className="set-meta">
-                      <span>{QUESTIONS_PER_SET} Qs</span>
-                      {completed && <span>• Done</span>}
-                    </div>
+                  
+                  <div className="set-icon">
+                    {completed ? '✅' : '📝'}
+                  </div>
+                  
+                  <div className="set-card-body">
+                    <div className="set-number">Set {String(num).padStart(2, '0')}</div>
+                    <div className="set-label">Practice Quiz</div>
+                    <div className="set-meta">{QUESTIONS_PER_SET} questions</div>
+                  </div>
+
+                  <div className="set-action">
+                    {completed ? 'Retry' : 'Start'}
                   </div>
                 </div>
               );
