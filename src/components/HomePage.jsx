@@ -41,6 +41,12 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
           {ALL_QUESTIONS.length} questions organized into {WEEKS.length} weeks.
           Study, practice by week, or mix multiple weeks for shuffled quizzes.
         </p>
+
+        <div className="course-info-card">
+          <span className="course-tag">MOOC Course</span>
+          <h2 className="course-title">Education for Sustainable Development</h2>
+          <p className="course-instructor">By Prof. Atasi Mohanty | IIT Kharagpur</p>
+        </div>
         <div className="hero-stats-row">
           <div className="hero-stat">
             <div className="hero-stat-val">{ALL_QUESTIONS.length}</div>
