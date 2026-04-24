@@ -1,15 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import { generateSet, QUESTIONS_PER_SET } from '../data/questions';
 
-export default function QuizPage({ setNumber, onFinish, onBack }) {
-  const [questions] = useState(() => generateSet(setNumber));
+export default function QuizPage({ questions: initialQuestions, title, onFinish, onBack }) {
+  const [questions] = useState(initialQuestions);
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [showAnswer, setShowAnswer] = useState(false);
   const [timer, setTimer] = useState(0);
   const [showDots, setShowDots] = useState(false);
+  const totalQ = questions.length;
 
-  // Timer
   useEffect(() => {
     const interval = setInterval(() => setTimer(t => t + 1), 1000);
     return () => clearInterval(interval);
@@ -24,24 +22,14 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
   const handleAnswer = (optionIdx) => {
     if (answers[currentQ] !== undefined) return;
     setAnswers(prev => ({ ...prev, [currentQ]: optionIdx }));
-    setShowAnswer(true);
   };
 
   const nextQ = useCallback(() => {
-    setShowAnswer(false);
-    if (currentQ < questions.length - 1) {
-      setCurrentQ(c => c + 1);
-    }
-  }, [currentQ, questions.length]);
+    if (currentQ < totalQ - 1) setCurrentQ(c => c + 1);
+  }, [currentQ, totalQ]);
 
   const prevQ = () => {
-    setShowAnswer(false);
     if (currentQ > 0) setCurrentQ(c => c - 1);
-  };
-
-  const goToQ = (idx) => {
-    setShowAnswer(false);
-    setCurrentQ(idx);
   };
 
   const handleSubmit = () => {
@@ -49,14 +37,7 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
     questions.forEach((q, i) => {
       if (answers[i] === q.correctAnswer) score++;
     });
-    onFinish({
-      setNumber,
-      score,
-      total: QUESTIONS_PER_SET,
-      answers,
-      questions,
-      time: timer,
-    });
+    onFinish({ score, total: totalQ, answers, questions, time: timer });
   };
 
   const answeredCount = Object.keys(answers).length;
@@ -68,28 +49,23 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
   return (
     <div className="quiz-page">
       <div className="quiz-header">
-        <button className="quiz-back-btn" onClick={onBack}>
-          ← Back
-        </button>
+        <button className="quiz-back-btn" onClick={onBack}>← Back</button>
+        <h3 style={{ color: 'var(--accent-2)', fontFamily: 'Outfit', fontSize: '1rem', fontWeight: 600 }}>{title}</h3>
         <div className="quiz-info-bar">
           <div className="quiz-timer">
-            ⏱{formatTime(timer)}
+            {formatTime(timer)}
           </div>
           <div className="quiz-progress-text">
-            {answeredCount}/{QUESTIONS_PER_SET} answered
+            {answeredCount}/{totalQ} answered
           </div>
-          <button
-            className="quiz-back-btn"
-            onClick={() => setShowDots(d => !d)}
-            style={{ fontSize: '0.8rem' }}
-          >
-            {showDots ? '🔼 Hide' : '🔽 Navigator'}
+          <button className="quiz-back-btn" onClick={() => setShowDots(d => !d)} style={{ fontSize: '0.8rem' }}>
+            {showDots ? 'Hide' : 'Navigator'}
           </button>
         </div>
       </div>
 
       <div className="quiz-progress-bar">
-        <div className="quiz-progress-fill" style={{ width: `${(answeredCount / QUESTIONS_PER_SET) * 100}%` }} />
+        <div className="quiz-progress-fill" style={{ width: `${(answeredCount / totalQ) * 100}%` }} />
       </div>
 
       {showDots && (
@@ -98,7 +74,7 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
             <button
               key={i}
               className={`q-dot ${i === currentQ ? 'active' : ''} ${answers[i] !== undefined ? 'answered' : ''}`}
-              onClick={() => goToQ(i)}
+              onClick={() => setCurrentQ(i)}
             >
               {i + 1}
             </button>
@@ -107,9 +83,8 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
       )}
 
       <div className="question-card" key={currentQ}>
-        <div className="question-number">Question {currentQ + 1} of {QUESTIONS_PER_SET}</div>
+        <div className="question-number">Question {currentQ + 1} of {totalQ}</div>
         <div className="question-text">{q.question}</div>
-
         <div className="options-list">
           {q.options.map((opt, idx) => {
             let cls = 'option-btn';
@@ -117,9 +92,6 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
               cls += ' disabled';
               if (idx === q.correctAnswer) cls += ' correct show-correct';
               if (idx === selectedAnswer && idx !== q.correctAnswer) cls += ' incorrect';
-              if (idx === selectedAnswer && idx === q.correctAnswer) cls += ' correct';
-            } else if (selectedAnswer === idx) {
-              cls += ' selected';
             }
             return (
               <button key={idx} className={cls} onClick={() => handleAnswer(idx)}>
@@ -135,22 +107,15 @@ export default function QuizPage({ setNumber, onFinish, onBack }) {
         <button className="nav-btn secondary" onClick={prevQ} disabled={currentQ === 0}>
           ← Previous
         </button>
-        <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
-          Set #{setNumber}
-        </span>
-        {currentQ === questions.length - 1 ? (
-          <button
-            className="nav-btn primary"
-            onClick={handleSubmit}
-            disabled={answeredCount < QUESTIONS_PER_SET}
-            title={answeredCount < QUESTIONS_PER_SET ? `Answer all ${QUESTIONS_PER_SET} questions first` : 'Submit quiz'}
-          >
-            Submit Quiz 
+        <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>{title}</span>
+        {currentQ === totalQ - 1 ? (
+          <button className="nav-btn primary" onClick={handleSubmit}
+            disabled={answeredCount < totalQ}
+            title={answeredCount < totalQ ? `Answer all ${totalQ} questions first` : 'Submit quiz'}>
+            Submit Quiz
           </button>
         ) : (
-          <button className="nav-btn primary" onClick={nextQ}>
-            Next →
-          </button>
+          <button className="nav-btn primary" onClick={nextQ}>Next →</button>
         )}
       </div>
     </div>

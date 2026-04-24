@@ -131,7 +131,57 @@ export const ALL_QUESTIONS = [
   {q:"___ is the ability of a system to absorb disturbances and retain its basic function and structure.",o:["resilience","gratitude","mindfulness","sustainable consumption"],a:0},
 ];
 
-// Seeded random number generator for reproducible sets
+// Week definitions: 13 weeks (0-12), 10 questions each
+export const WEEKS = Array.from({ length: 13 }, (_, i) => ({
+  week: i,
+  label: `Week ${i}`,
+  start: i * 10,
+  end: Math.min((i + 1) * 10, 130),
+}));
+
+export function getWeekQuestions(weekNum) {
+  const w = WEEKS[weekNum];
+  return ALL_QUESTIONS.slice(w.start, w.end).map((q, i) => ({
+    question: q.q,
+    options: [...q.o],
+    correctAnswer: q.a,
+    originalIndex: w.start + i,
+  }));
+}
+
+// Shuffle helper
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Get shuffled questions from multiple weeks for practice
+export function getPracticeQuestions(weekNumbers) {
+  let questions = [];
+  weekNumbers.forEach(wn => {
+    const wq = getWeekQuestions(wn);
+    questions = questions.concat(wq);
+  });
+  // Shuffle questions
+  questions = shuffle(questions);
+  // Also shuffle options for each question
+  return questions.map(q => {
+    const optionIndices = Array.from({ length: q.options.length }, (_, i) => i);
+    const shuffled = shuffle(optionIndices);
+    const newCorrect = shuffled.indexOf(q.correctAnswer);
+    return {
+      ...q,
+      options: shuffled.map(i => q.options[i]),
+      correctAnswer: newCorrect,
+    };
+  });
+}
+
+// Keep old set generation for practice sets tab
 function seededRandom(seed) {
   let s = seed;
   return function() {
@@ -139,8 +189,6 @@ function seededRandom(seed) {
     return (s - 1) / 2147483646;
   };
 }
-
-// Fisher-Yates shuffle with seeded RNG
 function seededShuffle(array, rng) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -149,29 +197,23 @@ function seededShuffle(array, rng) {
   }
   return arr;
 }
-
-// Generate a practice set with a given seed
 export function generateSet(setNumber) {
   const rng = seededRandom(setNumber * 7919 + 42);
   const indices = Array.from({ length: ALL_QUESTIONS.length }, (_, i) => i);
   const shuffledIndices = seededShuffle(indices, rng);
   const selectedIndices = shuffledIndices.slice(0, 50);
-  
-  // Also shuffle the options for each question
   return selectedIndices.map(idx => {
     const q = ALL_QUESTIONS[idx];
     const optionIndices = Array.from({ length: q.o.length }, (_, i) => i);
     const shuffledOptions = seededShuffle(optionIndices, rng);
     const newCorrectIndex = shuffledOptions.indexOf(q.a);
-    
     return {
       question: q.q,
       options: shuffledOptions.map(i => q.o[i]),
       correctAnswer: newCorrectIndex,
-      originalIndex: idx
+      originalIndex: idx,
     };
   });
 }
-
 export const TOTAL_SETS = 50;
 export const QUESTIONS_PER_SET = 50;

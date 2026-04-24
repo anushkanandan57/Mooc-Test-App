@@ -39,10 +39,9 @@ function Confetti() {
 }
 
 export default function ResultsPage({ result, onHome, onRetry, onReview }) {
-  const { score, total, time, setNumber, answers, questions } = result;
+  const { score, total, time, title, answers, questions } = result;
   const percentage = Math.round((score / total) * 100);
   const wrong = total - score - (total - Object.keys(answers).length);
-  const skipped = total - Object.keys(answers).length;
   const [filter, setFilter] = useState('all');
 
   const formatTime = (s) => {
@@ -79,7 +78,7 @@ export default function ResultsPage({ result, onHome, onRetry, onReview }) {
       <div className="results-card">
         <div className="results-emoji">{getEmoji()}</div>
         <h2 className="results-title">{getTitle()}</h2>
-        <p className="results-subtitle">Practice Set #{setNumber} completed in {formatTime(time)}</p>
+        <p className="results-subtitle">{title} completed in {formatTime(time)}</p>
 
         <div className="score-circle" style={{ '--score': percentage }}>
           <div className="score-circle-inner">
