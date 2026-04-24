@@ -58,7 +58,7 @@ export const ALL_QUESTIONS = [
   {q:"Sus-QI stands for ___.",o:["Sustainable quality improvement","Sustainable quality improvisation","Sustainable quantity improvement","Sustainable quantity improvisation"],a:0},
   {q:"Which is NOT a stage of Sus-QI?",o:["set goals","measure impacts","design the improvement effort","ignore the system"],a:3},
   {q:"Food insecurity is measured on the ___.",o:["FIES","FAIS","FIET","FAIR"],a:0},
-  {q:"The UN lists ___ levels of food security for any given country.",o:["5","4","3","2"],a:1},
+  {q:"The UN lists ___ levels of food security for any given country.",o:["5","4","3","2"],a:0},
   {q:"Poor infrastructure can cause hunger in a country.",o:["True","False"],a:0},
   {q:"In high income countries, hunger is mainly caused due to ___.",o:["low GDP of the country","lack of access to food","poor public transport infrastructure","lack of jobs"],a:3},
   {q:"Which is true about hunger?",o:["It is a cause of war","It is an effect of war","It is both a cause and effect of war","It is neither a cause nor an effect of war"],a:2},
