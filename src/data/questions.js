@@ -71,7 +71,7 @@ export const ALL_QUESTIONS = [
   {q:"Home gardening can supplement food and nutritional security at the household level.",o:["True","False"],a:0},
   {q:"Which of the following is a type of energy?",o:["fossil fuels","nuclear power","traditional biomass","all of the given"],a:3},
   {q:"In IPCC by UN, 'I' stands for ___.",o:["Industrial","Internal","International","Intergovernmental"],a:3},
-  {q:"Extraction and refinement of nuclear fuels results in ___.",o:["improvement of land from mining","pollution of air and water","replenishment of biodiversity","all of the given"],a:1},
+  {q:"Extraction,  transport and refinement of nuclear fuels results in ___.",o:["improvement of land from mining","pollution of air and water","replenishment of biodiversity","all of the given"],a:1},
   {q:"The greatest contributor to air pollution in China is ___.",o:["cooking and heating","coal burning","transport","forest burning"],a:1},
   {q:"After 2011 tsunami, a city in Japan set a target for ___ by 2022.",o:["hundred net energy","one net energy","million net energy","zero net energy"],a:3},
   {q:"The term 'energy democracy' grew out of the ___ movement.",o:["hunger justice","hunger revolt","climate revolt","climate justice"],a:3},
