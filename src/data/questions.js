@@ -43,7 +43,7 @@ export const ALL_QUESTIONS = [
   {q:"Classification of GIDO, GESO and GNEO is given by US National Center for ___.",o:["G*NET","A*NET","I*NET","O*NET"],a:3},
   {q:"International Framework for Greening TVET tiers, EXCEPT ___.",o:["Breaking TVET institutions","Transforming TVET institutions","Formulating National Policies","Forming International Alliance"],a:0},
   {q:"Energy, water and waste management comes under ___ dimension of Greening TVET.",o:["Green research","Green culture","Green teaching","Green campus"],a:3},
-  {q:"Industry-institute interaction is an indicator of ___.",o:["green house","green teaching","green campus","green curriculum"],a:1},
+  {q:"Industry-institute interaction is an indicator of ___.",o:["green house","green teaching","green campus","green curriculum"],a:3},
   {q:"Sustainable entrepreneurship includes ___.",o:["social entrepreneurship","eco-preneurship","intra-preneurship","all of the given"],a:3},
   {q:"ESD requires ___ learning methods.",o:["participatory","passive","rigid","static"],a:0},
   {q:"Which is a transversal competency?",o:["creativity","empathy","systems thinking","all of the given"],a:3},
