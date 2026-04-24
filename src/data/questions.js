@@ -53,7 +53,7 @@ export const ALL_QUESTIONS = [
   {q:"Which is NOT a problem of healthcare infrastructure in India?",o:["shortage of staff","skewed favor to urban areas","no proper regulatory mechanism","standard procedures in all regions"],a:3},
   {q:"Which is a health system building block as suggested by WHO?",o:["Economic growth","Access to public transport","Politics","Service delivery"],a:3},
   {q:"An ecologically sustainable approach broadens the definition of ___.",o:["objective","outcome","cost","value"],a:3},
-  {q:"A ___ is an environment in which medical data can be stored and made easily available.",o:["health repository","health bank","health bag","health grid"],a:0},
+  {q:"A ___ is an environment in which medical data can be stored and made easily available.",o:["health repository","health bank","health bag","health grid"],a:3},
   {q:"POSHAN Abhiyan in India aims to improve nutritional outcomes for ___.",o:["children","lactating mothers","pregnant women","all of the given"],a:3},
   {q:"Sus-QI stands for ___.",o:["Sustainable quality improvement","Sustainable quality improvisation","Sustainable quantity improvement","Sustainable quantity improvisation"],a:0},
   {q:"Which is NOT a stage of Sus-QI?",o:["set goals","measure impacts","design the improvement effort","ignore the system"],a:3},
