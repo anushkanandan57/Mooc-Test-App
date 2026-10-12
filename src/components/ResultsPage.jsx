@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
 
+function createConfettiPieces() {
+  const colors = ['#6c5ce7', '#a29bfe', '#00cec9', '#55efc4', '#fd79a8', '#fdcb6e', '#ff6b6b'];
+  return Array.from({ length: 60 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 2,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    size: 6 + Math.random() * 8,
+    rotation: Math.random() * 360,
+    borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+  }));
+}
+
 function Confetti() {
-  const [pieces, setPieces] = useState([]);
+  const [pieces, setPieces] = useState(createConfettiPieces);
   useEffect(() => {
-    const colors = ['#6c5ce7', '#a29bfe', '#00cec9', '#55efc4', '#fd79a8', '#fdcb6e', '#ff6b6b'];
-    const p = Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 2,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: 6 + Math.random() * 8,
-      rotation: Math.random() * 360,
-    }));
-    setPieces(p);
     const t = setTimeout(() => setPieces([]), 4000);
     return () => clearTimeout(t);
   }, []);
@@ -29,7 +32,7 @@ function Confetti() {
             animationDelay: `${p.delay}s`,
             width: p.size, height: p.size,
             background: p.color,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+            borderRadius: p.borderRadius,
             transform: `rotate(${p.rotation}deg)`,
           }}
         />
@@ -38,7 +41,7 @@ function Confetti() {
   );
 }
 
-export default function ResultsPage({ result, onHome, onRetry, onReview }) {
+export default function ResultsPage({ result, onHome, onRetry }) {
   const { score, total, time, title, answers, questions } = result;
   const percentage = Math.round((score / total) * 100);
   const wrong = total - score - (total - Object.keys(answers).length);

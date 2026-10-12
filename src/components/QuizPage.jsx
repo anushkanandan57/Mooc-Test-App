@@ -41,6 +41,21 @@ export default function QuizPage({ questions: initialQuestions, title, onFinish,
   };
 
   const answeredCount = Object.keys(answers).length;
+
+  if (!questions || totalQ === 0) {
+    return (
+      <div className="quiz-page">
+        <div className="quiz-header">
+          <button className="quiz-back-btn" onClick={onBack}>← Back</button>
+        </div>
+        <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+          <h3>No questions available to practice.</h3>
+          <button className="nav-btn primary" onClick={onBack} style={{ marginTop: '1rem' }}>Go Back</button>
+        </div>
+      </div>
+    );
+  }
+
   const q = questions[currentQ];
   const selectedAnswer = answers[currentQ];
   const isAnswered = selectedAnswer !== undefined;

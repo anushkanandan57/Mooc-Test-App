@@ -6,15 +6,19 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
   const [selectedWeeks, setSelectedWeeks] = useState([]);
   const [search, setSearch] = useState('');
 
+  const activeWeeks = WEEKS.filter(w => w.end > w.start).map(w => w.week);
+
   const toggleWeek = (w) => {
+    const weekObj = WEEKS.find(item => item.week === w);
+    if (!weekObj || weekObj.end <= weekObj.start) return;
     setSelectedWeeks(prev =>
       prev.includes(w) ? prev.filter(x => x !== w) : [...prev, w].sort((a, b) => a - b)
     );
   };
 
   const selectAll = () => {
-    if (selectedWeeks.length === WEEKS.length) setSelectedWeeks([]);
-    else setSelectedWeeks(WEEKS.map(w => w.week));
+    if (selectedWeeks.length === activeWeeks.length) setSelectedWeeks([]);
+    else setSelectedWeeks(activeWeeks);
   };
 
   const filteredSets = useMemo(() => {
@@ -24,28 +28,31 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
   }, [search]);
 
   const completedCount = Object.keys(completedSets).length;
-  const totalQSelected = selectedWeeks.length * 10;
+  const totalQSelected = selectedWeeks.reduce((acc, wn) => {
+    const w = WEEKS.find(item => item.week === wn);
+    return acc + (w ? w.end - w.start : 0);
+  }, 0);
 
   return (
     <div className="home-page">
       <section className="hero-section">
         <div className="hero-badge">
           <span className="pulse"></span>
-          SDG Quiz Practice Platform
+          Psychology of Learning Practice Platform
         </div>
         <h1 className="hero-title">
-          Master Your <span className="gradient-text">SDG Knowledge</span>
+          Master <span className="gradient-text">Psychology of Learning</span>
           <br />Week by Week
         </h1>
         <p className="hero-subtitle">
-          {ALL_QUESTIONS.length} questions organized into {WEEKS.length} weeks.
+          {ALL_QUESTIONS.length} questions organized into {WEEKS.length} weeks (Weeks 0–11 active).
           Study, practice by week, or mix multiple weeks for shuffled quizzes.
         </p>
 
         <div className="course-info-card">
-          <span className="course-tag">MOOC Course</span>
-          <h2 className="course-title">Education for Sustainable Development</h2>
-          <p className="course-instructor">By Prof. Atasi Mohanty | IIT Kharagpur</p>
+          <span className="course-tag">NPTEL Course</span>
+          <h2 className="course-title">Psychology of Learning</h2>
+          <p className="course-instructor">NPTEL Online Certification Courses • IIT Kharagpur</p>
         </div>
         <div className="hero-stats-row">
           <div className="hero-stat">
@@ -103,7 +110,7 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
               <p className="section-subtitle">Select weeks to combine, or click Study/Practice for a single week</p>
             </div>
             <button className="nav-btn secondary" onClick={selectAll} style={{ fontSize: '0.8rem', padding: '6px 14px' }}>
-              {selectedWeeks.length === WEEKS.length ? 'Deselect All' : 'Select All'}
+              {selectedWeeks.length === activeWeeks.length ? 'Deselect All' : 'Select All'}
             </button>
           </div>
 
@@ -111,27 +118,47 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
             {WEEKS.map(w => {
               const isSelected = selectedWeeks.includes(w.week);
               const done = completedWeeks[w.week];
+              const qCount = w.end - w.start;
+              const isEmpty = qCount === 0;
+
               return (
                 <div
                   key={w.week}
-                  className={`week-card ${isSelected ? 'selected' : ''} ${done ? 'completed' : ''}`}
+                  className={`week-card ${isSelected ? 'selected' : ''} ${done ? 'completed' : ''} ${isEmpty ? 'empty-week' : ''}`}
+                  style={isEmpty ? { opacity: 0.75 } : {}}
                 >
-                  {done && <span className="set-score-badge">{done.score}/10</span>}
-                  <div className="week-check" onClick={() => toggleWeek(w.week)}>
+                  {done && <span className="set-score-badge">{done.score}/{qCount}</span>}
+                  <div
+                    className="week-check"
+                    onClick={() => !isEmpty && toggleWeek(w.week)}
+                    style={{ cursor: isEmpty ? 'not-allowed' : 'pointer', opacity: isEmpty ? 0.3 : 1 }}
+                  >
                     <div className={`checkbox ${isSelected ? 'checked' : ''}`}>
                       {isSelected && '✓'}
                     </div>
                   </div>
                   <div className="week-card-body">
                     <div className="week-number">Week {w.week}</div>
-                    <div className="week-range">Q{w.start + 1} – Q{w.end}</div>
-                    <div className="week-qs">{w.end - w.start} questions</div>
+                    <div className="week-range">
+                      {isEmpty ? 'Questions coming soon' : `Q${w.start + 1} – Q${w.end}`}
+                    </div>
+                    <div className="week-qs">{isEmpty ? 'Empty' : `${qCount} questions`}</div>
                   </div>
                   <div className="week-actions">
-                    <button className="week-btn study" onClick={() => onStudy(w.week)}>
+                    <button
+                      className="week-btn study"
+                      disabled={isEmpty}
+                      onClick={() => !isEmpty && onStudy(w.week)}
+                      style={isEmpty ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                    >
                       Study
                     </button>
-                    <button className="week-btn practice" onClick={() => onPracticeWeeks([w.week])}>
+                    <button
+                      className="week-btn practice"
+                      disabled={isEmpty}
+                      onClick={() => !isEmpty && onPracticeWeeks([w.week])}
+                      style={isEmpty ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                    >
                       Practice
                     </button>
                   </div>
@@ -147,7 +174,7 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
           <div className="section-header">
             <div>
               <h2 className="section-title">Practice Sets</h2>
-              <p className="section-subtitle">50 shuffled questions from all 130</p>
+              <p className="section-subtitle">50 shuffled questions from all {ALL_QUESTIONS.length}</p>
             </div>
             <input
               type="text" placeholder="Search set #..."

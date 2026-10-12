@@ -5,8 +5,8 @@ import QuizPage from './components/QuizPage';
 import ResultsPage from './components/ResultsPage';
 import { generateSet, getPracticeQuestions } from './data/questions';
 
-const STORAGE_KEY = 'sdg-quiz-progress';
-const WEEK_KEY = 'sdg-week-progress';
+const STORAGE_KEY = 'psy-quiz-progress';
+const WEEK_KEY = 'psy-week-progress';
 
 function load(key) {
   try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : {}; }
@@ -18,6 +18,7 @@ export default function App() {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [quizTitle, setQuizTitle] = useState('');
   const [quizMeta, setQuizMeta] = useState(null); // {type, id} for saving
+  const [quizSessionId, setQuizSessionId] = useState(0);
   const [result, setResult] = useState(null);
   const [completedSets, setCompletedSets] = useState(() => load(STORAGE_KEY));
   const [completedWeeks, setCompletedWeeks] = useState(() => load(WEEK_KEY));
@@ -36,21 +37,25 @@ export default function App() {
 
   const handlePracticeWeeks = (weekNums) => {
     const qs = getPracticeQuestions(weekNums);
+    if (qs.length === 0) return;
     const label = weekNums.length === 1
       ? `Week ${weekNums[0]} Practice`
       : `Week ${weekNums[0]}–${weekNums[weekNums.length - 1]} (${weekNums.length} weeks)`;
     setQuizQuestions(qs);
     setQuizTitle(label);
     setQuizMeta({ type: 'week', ids: weekNums });
+    setQuizSessionId(prev => prev + 1);
     setPage('quiz');
     window.scrollTo(0, 0);
   };
 
   const handleStartQuiz = (setNum) => {
     const qs = generateSet(setNum);
+    if (qs.length === 0) return;
     setQuizQuestions(qs);
     setQuizTitle(`Practice Set #${String(setNum).padStart(2, '0')}`);
     setQuizMeta({ type: 'set', id: setNum });
+    setQuizSessionId(prev => prev + 1);
     setPage('quiz');
     window.scrollTo(0, 0);
   };
@@ -99,7 +104,7 @@ export default function App() {
         <header className="header">
           <div className="header-logo" onClick={goHome}>
             <span className="logo-icon"></span>
-            SDG Quiz Pro
+            Psychology of Learning
           </div>
           <div className="header-stats">
             <div className="stat-badge">
@@ -122,7 +127,7 @@ export default function App() {
         )}
         {page === 'quiz' && (
           <QuizPage
-            key={Date.now()}
+            key={quizSessionId}
             questions={quizQuestions}
             title={quizTitle}
             onFinish={handleFinish}
