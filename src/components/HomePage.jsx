@@ -45,7 +45,7 @@ export default function HomePage({ onStudy, onPracticeWeeks, onStartQuiz, comple
           <br />Week by Week
         </h1>
         <p className="hero-subtitle">
-          {ALL_QUESTIONS.length} questions organized into {WEEKS.length} weeks (Weeks 0–11 active).
+          {ALL_QUESTIONS.length} questions organized into {WEEKS.length} weeks (Weeks 0–12).
           Study, practice by week, or mix multiple weeks for shuffled quizzes.
         </p>
 

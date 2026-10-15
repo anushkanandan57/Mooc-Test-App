@@ -141,24 +141,26 @@ export const ALL_QUESTIONS = [
   { q: "The same social behavior in one cultural setting might have a very different meaning and interpretation if it were to occur or be observed in another culture.", o: ["True", "False"], a: 0 },
   { q: "Social cognitive theory by Bandura focuses on concepts of ___.", o: ["self-efficacy", "modeling", "observational learning", "all of the given"], a: 3 },
   { q: "The central tenet of Bandura’s social-cognitive theory is that people seek to develop a sense of ___ over the important events in their lives.", o: ["agency", "dependency", "attachment", "emotion"], a: 0 },
-  { q: "___ hypothesis suggests that social processes influence how information is selected, organized, integrated, and retrieved.", o: ["activation", "cognitive influence", "interaction", "social cue strength"], a: 1 },
+  // Week 12 (120-129)
+  { q: "Sustainability in economic sustainability is ___.", o: ["multidimensional", "bidimensional", "unidimensional", "none of the given"], a: 2 },
+  { q: "The term \"sustainable development\" was first mentioned in a book related to the 1972 UN Stockholm conference on ___.", o: ["water", "poverty", "economic crisis", "human environment"], a: 3 },
+  { q: "Environmental sustainability focuses on impacts of processes, products and services on ___.", o: ["water", "biodiversity", "human health", "all of the given"], a: 3 },
+  { q: "Which of the following does not come under social sustainability?", o: ["Labour practices", "Revenue generation", "Human rights", "Business ethics"], a: 1 },
+  { q: "SDG ___ focuses on clean water and sanitation.", o: ["1", "17", "6", "3"], a: 2 },
+  { q: "SDG 16 focuses on ___.", o: ["No poverty", "No hunger", "Good health", "Peace and justice"], a: 3 },
+  { q: "On 20 October 2020, the Higher Education Sustainability Initiative (HESI) raised the flag of higher education as a driver for sustainable development and inclusive societies on the first day of the ___ 2020.", o: ["National Sustainability Meeting", "National Teachers Meeting", "Global Childrens' Meeting", "Global Education Meeting"], a: 3 },
+  { q: "Education is related to all SDGs.", o: ["True", "False"], a: 0 },
+  { q: "Successful implementation of ESD requires a shift in focus from ___.", o: ["teaching to learning", "learning to teaching", "reading to speaking", "knowing to ignoring"], a: 0 },
+  { q: "___ competency is the ability to reflect on one's own role in the local community and (global) society.", o: ["collaboration", "self-awareness", "strategic", "normative"], a: 1 },
 ];
 
-// Week definitions: 13 weeks (0-12), Weeks 0-11 active (10 Qs each), Week 12 empty for now
-export const WEEKS = [
-  ...Array.from({ length: 12 }, (_, i) => ({
-    week: i,
-    label: `Week ${i}`,
-    start: i * 10,
-    end: (i + 1) * 10,
-  })),
-  {
-    week: 12,
-    label: `Week 12`,
-    start: 120,
-    end: 120,
-  },
-];
+// Week definitions: 13 weeks (0-12), 10 questions each
+export const WEEKS = Array.from({ length: 13 }, (_, i) => ({
+  week: i,
+  label: `Week ${i}`,
+  start: i * 10,
+  end: (i + 1) * 10,
+}));
 
 export function getWeekQuestions(weekNum) {
   const w = WEEKS.find(item => item.week === weekNum);
