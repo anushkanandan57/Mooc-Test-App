@@ -141,7 +141,9 @@ export const ALL_QUESTIONS = [
   { q: "The same social behavior in one cultural setting might have a very different meaning and interpretation if it were to occur or be observed in another culture.", o: ["True", "False"], a: 0 },
   { q: "Social cognitive theory by Bandura focuses on concepts of ___.", o: ["self-efficacy", "modeling", "observational learning", "all of the given"], a: 3 },
   { q: "The central tenet of Bandura’s social-cognitive theory is that people seek to develop a sense of ___ over the important events in their lives.", o: ["agency", "dependency", "attachment", "emotion"], a: 0 },
-  // Week 12 (120-129)
+  { q: "___ hypothesis suggests that social processes influence how information is selected, organized, integrated, and retrieved.", o: ["activation", "cognitive influence", "interaction", "social cue strength"], a: 1 },
+
+  // Week 12 (Questions 121-130)
   { q: "Sustainability in economic sustainability is ___.", o: ["multidimensional", "bidimensional", "unidimensional", "none of the given"], a: 2 },
   { q: "The term \"sustainable development\" was first mentioned in a book related to the 1972 UN Stockholm conference on ___.", o: ["water", "poverty", "economic crisis", "human environment"], a: 3 },
   { q: "Environmental sustainability focuses on impacts of processes, products and services on ___.", o: ["water", "biodiversity", "human health", "all of the given"], a: 3 },
